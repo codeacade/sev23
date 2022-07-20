@@ -6,17 +6,27 @@
   <body>
     <div id="div1">
 		<h2>Json Header</h2>
+		<p id="par1">json data:</p>
     </div>
 	<!-- <script type="text/javascript" src="data.json"></script> -->
 	<script type="text/javascript" >
+		par1 = document.querySelector("#par1");
 		fetch('data.json')
 			.then(response => response.json())			
 			.then(data => showJSON(data));
 		
-		function showJSON(inp){
+		function showJSON(inpu){
 			
-			inp.forEach(console.log);
-		}
+			inpu.forEach((e) => {
+				for (var key in e) {
+					if (e.hasOwnProperty(key)) {
+						console.log(key + "..." + e[key]);
+						par1.innerHTML += ("<br>" + key + " ... " + e[key]);
+					}
+				}
+			});
+		} // end showJSON
+		
 	</script>
   </body>
 </html>
