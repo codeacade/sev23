@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Json</title>
+  </head>
+  <body>
+    <div id="div1">
+		<h2>Json Header</h2>
+    </div>
+	<!-- <script type="text/javascript" src="data.json"></script> -->
+	<script type="text/javascript" >
+		fetch('data.json')
+			.then(response => response.json())			
+			.then(data => showJSON(data));
+		
+		function showJSON(inp){
+			
+			inp.forEach(console.log);
+		}
+	</script>
+  </body>
+</html>
