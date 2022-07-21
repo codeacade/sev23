@@ -6,24 +6,19 @@
   <body>
     <div id="div1">
 		<h2>Json Header</h2>
-		<p id="par1">json data:</p>
+		<p id="pp">json data:</p><br>
     </div>
-	<!-- <script type="text/javascript" src="data.json"></script> -->
 	<script type="text/javascript" >
-		par1 = document.querySelector("#par1");
-		fetch('data.json')
+		var pp = document.querySelector("#pp");
+	
+		fetch('artists.json')
 			.then(response => response.json())			
 			.then(data => showJSON(data));
 		
-		function showJSON(inpu){
-			
-			inpu.forEach((e) => {
-				for (var key in e) {
-					if (e.hasOwnProperty(key)) {
-						console.log(key + "..." + e[key]);
-						par1.innerHTML += ("<br>" + key + " ... " + e[key]);
-					}
-				}
+		function showJSON(dataJSON){
+			dataJSON["artists"].forEach((objJSON) => {
+			    pp.innerHTML += "<br>" + objJSON["name"];
+				console.log(objJSON["name"]);
 			});
 		} // end showJSON
 		
