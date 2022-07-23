@@ -2,11 +2,29 @@
 <html>
   <head>
     <title>Json</title>
+	<style>
+		* {
+			font-family: "Helvetica", "Arial", sans-serif;
+			font-size:0.9 rem;
+		}
+		#pp {
+			display: grid;
+			grid-template-columns: auto auto;
+			grid-gap: 5px;
+			width: 300px;
+		}
+		span {
+			background-color: beige;
+			display: grid;
+			width: 150px;
+		}
+	</style>
   </head>
   <body>
     <div id="div1">
 		<h2>Json Header</h2>
-		<p id="pp">json data:</p><br>
+		JSON data:
+		<p id="pp"></p>
     </div>
 	<script type="text/javascript" >
 		var pp = document.querySelector("#pp");
@@ -17,7 +35,8 @@
 		
 		function showJSON(dataJSON){
 			dataJSON["artists"].forEach((objJSON) => {
-			    pp.innerHTML += "<br>" + objJSON["name"];
+			    pp.innerHTML += "<span>" + objJSON["name"] + "</span>";
+				pp.innerHTML += "<span>" + objJSON["popularity"] + "</span>";
 				console.log(objJSON["name"]);
 			});
 		} // end showJSON
