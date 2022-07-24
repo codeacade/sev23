@@ -7,7 +7,7 @@
 			font-family: "Helvetica", "Arial", sans-serif;
 			font-size:0.9 rem;
 		}
-		#pp {
+		p {
 			display: grid;
 			grid-template-columns: auto auto;
 			grid-gap: 5px;
@@ -23,22 +23,23 @@
   <body>
     <div id="div1">
 		<h2>Json Header</h2>
-		JSON data:
-		<p id="pp"></p>
-		<p id="ppp"></p>
+		<p>JSON data:</p>
     </div>
 	<script type="text/javascript" >
-		var pp = document.querySelector("#pp");
-		var ppp = document.querySelector("#ppp");
+		var div1 = document.querySelector("#div1");
 	
 		fetch('artists.json')
 			.then(response => response.json())			
 			.then(data => showJSON(data));
 		
 		function showJSON(dataJSON){
+			var parNo = 1;
 			dataJSON["artists"].forEach((objJSON) => {
-			    pp.innerHTML += "<span>" + objJSON["name"] + "</span>";
-				pp.innerHTML += "<span>" + objJSON["popularity"] + "</span>";
+				var newPP = document.createElement("p");
+				newPP.id = "par" + parNo;
+				div1.appendChild(newPP);
+			    newPP.innerHTML += "<span>" + objJSON["name"] + "</span>";
+				newPP.innerHTML += "<span>" + objJSON["popularity"] + "</span>";
 				console.log(objJSON["name"]);
 			});
 			addDivs();
