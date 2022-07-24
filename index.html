@@ -25,9 +25,11 @@
 		<h2>Json Header</h2>
 		JSON data:
 		<p id="pp"></p>
+		<p id="ppp"></p>
     </div>
 	<script type="text/javascript" >
 		var pp = document.querySelector("#pp");
+		var ppp = document.querySelector("#ppp");
 	
 		fetch('artists.json')
 			.then(response => response.json())			
@@ -39,8 +41,17 @@
 				pp.innerHTML += "<span>" + objJSON["popularity"] + "</span>";
 				console.log(objJSON["name"]);
 			});
+			addDivs();
 		} // end showJSON
 		
+		function addDivs(){
+			for(var dd = 0; dd < 10; dd++) {
+				var field = document.createElement("div");
+				field.classList.add("field");
+				field.id = "aa" + dd;
+				ppp.appendChild(field);
+			}
+		}
 	</script>
   </body>
 </html>
