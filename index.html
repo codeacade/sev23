@@ -9,9 +9,9 @@
 		}
 		p {
 			display: grid;
-			grid-template-columns: auto auto;
+			grid-template-columns: auto auto auto;
 			grid-gap: 5px;
-			width: 300px;
+			width: 400px;
 		}
 		span {
 			background-color: beige;
@@ -22,11 +22,20 @@
   </head>
   <body>
     <div id="div1">
-		<h2>Json Header</h2>
-		<p>JSON data:</p>
+		<h2>Select Artist:</h2>
+		<p id="select01"> Artist 1: </p>
+		<p id="select02"> Artist 2: </p>
+		<h2>Json Data</h2>
+		<p>
+			<span>JSON name</span>
+			<span>JSON popularity</span>
+			<span>JSON followers</span>
+		</p>
     </div>
 	<script type="text/javascript" >
 		var div1 = document.querySelector("#div1");
+		var sel1 = document.querySelector("#select01");
+		var sel2 = document.querySelector("#select02");
 	
 		fetch('artists.json')
 			.then(response => response.json())			
@@ -40,19 +49,22 @@
 				div1.appendChild(newPP);
 			    newPP.innerHTML += "<span>" + objJSON["name"] + "</span>";
 				newPP.innerHTML += "<span>" + objJSON["popularity"] + "</span>";
+				newPP.innerHTML += "<span>" + objJSON["followers"]["total"] + "</span>";
 				console.log(objJSON["name"]);
 			});
-			addDivs();
+			printJSON(dataJSON);
 		} // end showJSON
 		
-		function addDivs(){
-			for(var dd = 0; dd < 10; dd++) {
-				var field = document.createElement("div");
-				field.classList.add("field");
-				field.id = "aa" + dd;
-				ppp.appendChild(field);
-			}
+		function printJSON(dataJSON){
+			var dataLength = dataJSON["artists"].length;
+			
+			var artist01 = Math.floor(Math.random() * dataLength);
+			var artist02 = Math.floor(Math.random() * dataLength);
+			
+			sel1.innerHTML += dataJSON["artists"][artist01]["name"];
+			sel2.innerHTML += dataJSON["artists"][artist02]["name"];
 		}
+		
 	</script>
   </body>
 </html>
