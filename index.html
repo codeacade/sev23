@@ -62,7 +62,12 @@
 			var artist02 = Math.floor(Math.random() * dataLength);
 			
 			sel1.innerHTML += dataJSON["artists"][artist01]["name"];
+			
+			sel1.innerHTML += Object.keys(dataJSON["artists"][artist01]).length;
+			
 			sel2.innerHTML += dataJSON["artists"][artist02]["name"];
+			
+			sel2.innerHTML += Object.keys(dataJSON["artists"][artist02]).length;
 		}
 		
 	</script>
