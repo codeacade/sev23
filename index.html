@@ -7,7 +7,7 @@
 			font-family: "Helvetica", "Arial", sans-serif;
 			font-size:0.9 rem;
 		}
-		p {
+		p.gridp {
 			display: grid;
 			grid-template-columns: auto auto auto;
 			grid-gap: 5px;
@@ -18,15 +18,26 @@
 			display: grid;
 			width: 150px;
 		}
+		
+		p.battle:hover {
+			color: #2bf;
+			cursor: pointer;
+		}
+		p.battle:hover:after {
+			margin-left:10px;
+			font-weight: 600;
+			content: "<";
+		}
+		
 	</style>
   </head>
   <body>
     <div id="div1">
 		<h2>Select more popular artist:</h2>
-		<p id="select01"> Artist 1: </p>
-		<p id="select02"> Artist 2: </p>
+		<p id="select01" class="battle"> Artist 1: </p>
+		<p id="select02" class="battle"> Artist 2: </p>
 		<h2>Json Data</h2>
-		<p>
+		<p class="gridp">
 			<span>JSON name</span>
 			<span>JSON popularity</span>
 			<span>JSON followers</span>
@@ -46,28 +57,61 @@
 			dataJSON["artists"].forEach((objJSON) => {
 				var newPP = document.createElement("p");
 				newPP.id = "par" + parNo;
+				newPP.className = "gridp";
 				div1.appendChild(newPP);
 			    newPP.innerHTML += "<span>" + objJSON["name"] + "</span>";
 				newPP.innerHTML += "<span>" + objJSON["popularity"] + "</span>";
 				newPP.innerHTML += "<span>" + objJSON["followers"]["total"] + "</span>";
-				console.log(objJSON["name"]);
 			});
 			printJSON(dataJSON);
 		} // end showJSON
 		
-		function printJSON(dataJSON){
-			var dataLength = dataJSON["artists"].length;
+		function printJSON(dataJSON){  // get two random artists from JSON
+			const dataArray = dataJSON["artists"];
+			const dataLength = dataArray.length;
 			
 			var artist01 = Math.floor(Math.random() * dataLength);
 			var artist02 = Math.floor(Math.random() * dataLength);
+			if(artist01 == artist02){
+				alert("Same artist!");
+				artist02 = (artist01 + 1) % dataLength;
+			}
 			
-			sel1.innerHTML += dataJSON["artists"][artist01]["name"];
+			sel1.innerHTML += dataArray[artist01]["name"];	
+			sel2.innerHTML += dataArray[artist02]["name"];
 			
-			sel1.innerHTML += Object.keys(dataJSON["artists"][artist01]).length;
+			sel1.addEventListener("click", comparArt);
+			sel2.addEventListener("click", comparArt);
 			
-			sel2.innerHTML += dataJSON["artists"][artist02]["name"];
+			sel1.artist01 = artist01;
+			sel1.artist02 = artist02;
+			sel1.dataJSON = dataJSON;
 			
-			sel2.innerHTML += Object.keys(dataJSON["artists"][artist02]).length;
+			sel2.artist01 = artist01;
+			sel2.artist02 = artist02;
+			sel2.dataJSON = dataJSON;
+
+		}
+		
+		
+		function comparArt(evnt){   // compare and display result
+			const dataArray = evnt.currentTarget.dataJSON["artists"];
+			artist01 = evnt.currentTarget.artist01;
+			artist02 = evnt.currentTarget.artist02;
+			
+			sel1.innerHTML += " > Popularity : " + dataArray[artist01]["popularity"];
+			sel2.innerHTML += " > Popularity : " + dataArray[artist02]["popularity"];
+			
+			if(dataArray[artist01]["popularity"] > dataArray[artist02]["popularity"]){
+				sel1.innerHTML += " <<<<< WINNER";
+			}
+			else sel2.innerHTML += " <<<<< WINNER";
+			
+			sel1.classList.remove("battle");
+			sel2.classList.remove("battle");
+			
+			// alert("WAIT!!");
+			//window.location.reload(false);			
 		}
 		
 	</script>
